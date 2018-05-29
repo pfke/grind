@@ -1,0 +1,19 @@
+apply plugin: 'scala'
+
+dependencies {
+  compile project(":grind-core")
+  compile group: 'org.apache.commons', name: 'commons-compress', version: '1.16.1'
+
+  testCompile project(":grind-testing")
+}
+
+compileScala {
+  scalaCompileOptions.additionalParameters = [
+          '-feature',
+          '-language:existentials,reflectiveCalls,postfixOps,implicitConversions',
+          '-unchecked',
+          '-deprecation',
+          '-encoding', 'utf8',
+          '-Ywarn-adapted-args'
+  ]
+}

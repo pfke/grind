@@ -1,0 +1,19 @@
+apply plugin: 'scala'
+
+dependencies {
+  compile group: 'junit', name: 'junit', version: '4.12'
+  compile group: 'org.mockito', name: 'mockito-core', version: '2.15.0'
+  compile group: 'org.scalatest', name: "scalatest_$scalaVersion", version: scalaTestV
+  compile group: 'com.typesafe.akka', name: "akka-testkit_$scalaVersion", version: akkaV
+}
+
+compileScala {
+  scalaCompileOptions.additionalParameters = [
+          '-feature',
+          '-language:existentials,reflectiveCalls,postfixOps,implicitConversions',
+          '-unchecked',
+          '-deprecation',
+          '-encoding', 'utf8',
+          '-Ywarn-adapted-args'
+  ]
+}
