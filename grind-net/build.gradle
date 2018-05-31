@@ -1,0 +1,23 @@
+apply plugin: 'scala'
+
+dependencies {
+  compile project(":grind-core")
+  compile project(":grind-io")
+
+  compile group: 'com.typesafe.akka', name: 'akka-actor_2.12', version: akkaV
+  compile group: 'commons-net', name: 'commons-net', version: '3.6'
+  compile group: 'org.zeromq', name: 'jeromq', version: '0.4.3'
+
+  testCompile project(":grind-testing")
+}
+
+compileScala {
+  scalaCompileOptions.additionalParameters = [
+          '-feature',
+          '-language:existentials,reflectiveCalls,postfixOps,implicitConversions',
+          '-unchecked',
+          '-deprecation',
+          '-encoding', 'utf8',
+          '-Ywarn-adapted-args'
+  ]
+}

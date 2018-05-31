@@ -9,8 +9,8 @@
 ext {
     scalaVersion = '2.12'
     scalaReleaseVersion = scalaVersion + '.5'
-    akkaV = "2.5.10"
-    akkaStreamV = "2.5.10"
+    akkaV = "2.5.13"
+    akkaStreamV = "2.5.13"
     scalaTestV = "3.0.3"
 }
 
