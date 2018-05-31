@@ -11,16 +11,16 @@ trait GrindObservable[A]
   // fields
   private val _busSubject = PublishSubject.create[A]()
 
-  _busSubject.subscribe(new Consumer[A] {
-    override def accept (t: A): Unit = println(t.toString)
-  })
-  _busSubject.onNext("lökölk")
+//  _busSubject.subscribe(new Consumer[A] {
+//    override def accept (t: A): Unit = println(t.toString)
+//  })
+//  _busSubject.onNext("lökölk")
 
 
-  override def onNext (value: A): Unit = {
-    post(value)
-    super.onNext(value)
-  }
+//  override def onNext (value: A): Unit = {
+//    post(value)
+//    super.onNext(value)
+//  }
 
   /**
     * Return a new filtered observable
@@ -42,8 +42,8 @@ trait GrindObservable[A]
     implicit
     classTag: ClassTag[B]
   ): Unit = {
-    observable[B]
-      .subscribe(observer)
+//    observable[B]
+//      .subscribe(observer)
   }
 
   /**
