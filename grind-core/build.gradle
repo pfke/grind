@@ -2,6 +2,7 @@ apply plugin: 'scala'
 
 dependencies {
   compile group: 'com.typesafe.akka', name: "akka-actor_$scalaVersion", version: akkaV
+  compile group: 'com.typesafe.akka', name: "akka-stream_$scalaVersion", version: akkaV
 
   compile group: 'org.scala-lang', name: 'scala-compiler', version: scalaReleaseVersion
   compile group: 'org.scala-lang', name: 'scala-reflect', version: scalaReleaseVersion

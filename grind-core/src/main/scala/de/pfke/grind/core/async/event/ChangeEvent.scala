@@ -1,8 +1,9 @@
 package de.pfke.grind.core.async.event
 
-sealed trait ChangeEvent extends GrindEvent
+sealed trait ChangeEvent
+  extends GrindEvent
 
-object ChangeEvent {
+object ChangeEventApi {
   /**
    * Property has changed.
    */

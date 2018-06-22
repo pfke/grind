@@ -2,14 +2,17 @@ package de.pfke.grind.core.async.event
 
 import java.time.Instant
 
-sealed trait TrafficEvent extends GrindEvent {
+sealed trait TrafficEvent
+  extends GrindEvent {
   def data: Any
   def timeStamp: Instant
 }
 
-object TrafficEvent {
+object TrafficEventApi {
   /**
    * Message received.
+    *
+    * TODO: Speed
    */
   case class Rx (data: Any, timeStamp: Instant = Instant.now()) extends TrafficEvent
 

@@ -2,9 +2,10 @@ package de.pfke.grind.core.async.event
 
 import java.time.Instant
 
-sealed trait RunlevelEvent extends GrindEvent
+sealed trait RunlevelEvent
+  extends GrindEvent
 
-object RunlevelEvent {
+object RunlevelEventApi {
   /**
     * Object is in init phase.
     */

@@ -2,9 +2,10 @@ package de.pfke.grind.core.async.event
 
 import java.time.Instant
 
-sealed trait ConnectionEvent extends GrindEvent
+sealed trait ConnectionEvent
+  extends GrindEvent
 
-object ConnectionEvent {
+object ConnectionEventApi {
   /**
     * Object is in init phase.
     */
