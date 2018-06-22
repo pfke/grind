@@ -7,7 +7,7 @@ import de.pfke.grind.core.async.event.GrindEvent
 object BaseProvider {
   val BASE_CLASSIFIER = "grindEvent"
 
-  private[provider] def buildClassifier(topic: String, sub: String): String = s"$topic//$sub"
+  def buildClassifier(topic: String, sub: String): String = s"$topic//$sub"
 }
 
 trait BaseProvider
