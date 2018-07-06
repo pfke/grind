@@ -12,15 +12,15 @@ object Runner {
   implicit val connectTimeout = 5 seconds
 
   def main(args: Array[String]) {
-    val r1 = TelnetClient
-      .testCredentials (
-        descr = TelnetClientDescr(
-          address = new InetSocketAddress(InetAddress.getByName("192.168.178.1"), TelnetClientActor.DEFAULT_PORT),
-          cred = TelnetCredentials()
-        )
-      )
-
-    println("323232")
+///    val r1 = TelnetClient
+///      .testCredentials (
+///        descr = TelnetClientDescr(
+///          address = new InetSocketAddress(InetAddress.getByName("192.168.178.1"), TelnetClientActor.DEFAULT_PORT),
+///          cred = TelnetCredentials()
+///        )
+///      )
+///
+///    println("323232")
 
 //    val client = TelnetClient(
 //      address = InetAddress.getByName("192.168.178.11"),

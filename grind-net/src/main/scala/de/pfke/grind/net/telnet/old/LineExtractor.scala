@@ -4,26 +4,42 @@ import java.nio.charset.{Charset, StandardCharsets}
 import java.time.{Instant, Duration => jtDuration}
 import java.util.concurrent.Executors
 
+import akka.actor.ActorSystem
+import akka.stream.{ActorMaterializer, OverflowStrategy}
+import akka.stream.scaladsl.{Framing, Keep, Sink, Source}
 import akka.util.ByteString
 
 import scala.collection.mutable.ArrayBuffer
 
 class LineExtractor (
-  reportOp: (String) => Unit,
+  reporter: (String) => Unit,
   charset: Charset = StandardCharsets.ISO_8859_1
 ) {
+  implicit val system = ActorSystem("QuickStart")
+  implicit val materializer = ActorMaterializer()
+
   // fields
-  private val _internalRx = new EventSource[Boolean]()
   private var _queue = ByteString.empty
   private val _scheduledExecutorService = Executors.newScheduledThreadPool(1)
 
+  private val _resultSource = Source.queue[String](bufferSize = 10, overflowStrategy = OverflowStrategy.dropBuffer)
+    .toMat(Sink.foreach(x => reporter(x)))(Keep.left)
+    .run()
+
+  //Source
+  //  .queue(bufferSize = 10, overflowStrategy = OverflowStrategy.dropHead)
+  //  .via(Framing.delimiter(delimiter = ByteString("\n".getBytes(charset)), 8192, allowTruncation = true))
+  //  .toMat(Sink.foreach(x => reporter(x)))(Keep.left)
+  //  .run()
+
+
   // ctor
-  _internalRx
-    .successionEnds(
-      jtDuration.ofMillis(100),
-      _scheduledExecutorService,
-      _scheduledExecutorService
-    ) |= { _ => flushQueue() }
+//  _internalRx
+//    .successionEnds(
+//      jtDuration.ofMillis(100),
+//      _scheduledExecutorService,
+//      _scheduledExecutorService
+//    ) |= { _ => flushQueue() }
 
   /**
     * Decode the given bytestring
@@ -42,18 +58,12 @@ class LineExtractor (
       while (str.contains('\n')) {
         val idx = str.indexOf('\n') + 1
 
-        decodedLines += str.take(idx - 1).trim
+        _resultSource.offer(str.take(idx - 1).trim)
         str = str.drop(idx)
       }
 
       _queue = ByteString(str)
-      // set timer to flush the queue
-      if (_queue.nonEmpty) {
-        _internalRx.push(true)
-      }
-
       // fire all decoded lines
-      decodedLines.foreach(reportOp)
     }
   }
 
@@ -70,7 +80,7 @@ class LineExtractor (
   private def flushQueue(): Unit = {
     synchronized {
       if (_queue.nonEmpty) {
-        reportOp(_queue.decodeString(charset.name()))
+        _resultSource.offer(_queue.decodeString(charset.name()))
       }
       _queue = ByteString.empty
     }}

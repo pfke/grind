@@ -2,6 +2,7 @@ package de.pfke.grind.net
 
 import java.net.{Inet4Address, InetAddress}
 
+import de.pfke.grind.core.data._
 import org.apache.commons.net.util.SubnetUtils
 
 object NetUtils {
